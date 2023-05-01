@@ -1,6 +1,52 @@
-import React from 'react'
+import React from 'react';
+
 
 const Login = () => {
+
+  
+  const url = app_config.apiUrl;
+  const navigate = useNavigate();
+
+  const loginform = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      const res = await fetch(`${url}/user/auth`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res.status);
+      if (res.status === 200) {
+        const data = (await res.json()).result;
+        // console.log("Login Successful");
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Login Successful!!",
+        });
+        if (data.role === "admin") {
+          sessionStorage.setItem("admin", JSON.stringify(data));
+          navigate("/admin/dashboard");
+        } else {
+          sessionStorage.setItem("user", JSON.stringify(data));
+          navigate("/user/profile");
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Login Failed!!",
+        });
+      }
+    },
+  });
+
   return (
     <section className="h-100 gradient-form" style={{ backgroundColor: "#eee" }}>
   <div className="container py-5 h-100">
