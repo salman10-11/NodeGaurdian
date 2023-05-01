@@ -6,6 +6,9 @@ import Login from './components/main/Login';
 import Home from './components/main/Home';
 import Signup from './components/main/Signup';
 import Navbar from './components/main/Navbar';
+import User from './components/user';
+import CodeGenerator from './components/user/CodeGenerator';
+import CodeBrowser from './components/main/CodeBrowser';
 
 function App() {
   return (
@@ -19,7 +22,14 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="navbar" element={<Navbar />} />
+           <Route path="codebrowser" element={<CodeBrowser />} />
           </Route>
+          <Route path="user" element={<User />} >
+           <Route path="codegenerator" element={<CodeGenerator />} />
+            
+          </Route>
+
+
         </Routes>
       </BrowserRouter>
     </div>
