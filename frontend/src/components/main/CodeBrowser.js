@@ -1,196 +1,156 @@
-import React from 'react'
+import React, { useState } from "react";
+import app_config, { structureData } from "../../config";
+import "./codebrowser.css";
+import { useNavigate } from "react-router-dom";
+import { Tilt } from "react-tilt";
+
+const tiltOptions = {
+  max: 40,
+  speed: 2000,
+  scale: 1.1,
+  transition: true,
+  easing: "cubic-bezier(.03,.98,.52,.99)",
+};
 
 const CodeBrowser = () => {
-  return (<div>
+  const [selOptions, setSelOptions] = useState([]);
+  const { options, apiUrl } = app_config;
+  // console.log(structureData[options.webApp.fullstack.mern.frontend]);
+  const navigate = useNavigate();
 
-  
-    <header>
-    {/* Intro settings */}
-    <style
-      dangerouslySetInnerHTML={{
-        __html:
-          "\n    /* Default height for small devices */\n    #intro-example {\n      height: 300px;\n    }\n\n    /* Height for devices larger than 992px */\n    @media (min-width: 992px) {\n      #intro-example {\n        height: 600px;\n      }\n    }\n  "
-      }}
-    />
-    <div
-      id="intro-example"
-      className="p-5 text-center bg-image"
-      style={{
-        backgroundImage: 'url("https://mdbcdn.b-cdn.net/img/new/slides/041.webp")'
-      }}
-    >
-      <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
-        <div className="d-flex justify-content-center align-items-center h-100">
-          <div className="text-white">
-            <h1 className="mb-3">Learn Bootstrap 5 with MDB</h1>
-            <h5 className="mb-4">
-              Best &amp; free guide of responsive web design
-            </h5>
-            <a
-              className="btn btn-outline-light btn-lg m-2"
-              href="https://www.youtube.com/watch?v=c9B4TPnak1A"
-              role="button"
-              rel="nofollow"
-              target="_blank"
-            >
-              Start tutorial
-            </a>
-            <a
-              className="btn btn-outline-light btn-lg m-2"
-              href="https://mdbootstrap.com/docs/standard/"
-              target="_blank"
-              role="button"
-            >
-              Download MDB UI KIT
-            </a>
-          </div>
+  const getSelectedObject = (givenOptions) => {
+    if (!givenOptions) givenOptions = selOptions;
+    let selObj = options;
+    // console.log(options);
+    // console.log(givenOptions);
+    givenOptions.forEach((opt) => {
+      selObj = selObj[opt];
+    });
+    // console.log(selObj);
+    return selObj;
+  };
+
+  const handleOptionClick = (option) => {
+    setSelOptions([...selOptions, option]);
+    console.log(selOptions);
+  };
+
+  const getOptionData = () => {
+    let data = {};
+    selOptions.forEach((opt) => {
+      data = { ...data, ...options[opt] };
+    });
+    console.log(data);
+    return data;
+  };
+
+  const navigatetoCodeGenerator = (opt) => {
+    let data = getSelectedObject([...selOptions, opt]);
+    console.log(data);
+    // return;
+    // handleOptionClick(opt);
+    sessionStorage.setItem(
+      "selOptions",
+      JSON.stringify(data)
+    );
+    navigate("/user/generator");
+  };
+
+  const displayOptions = (options) => {
+    if (selOptions.length === 0) {
+      return Object.keys(options).map((objKey, index) => (
+        <div className="col-md-3 my-4" key={index}>
+          <Tilt options={tiltOptions}>
+            <div className="card">
+              <div className="card-body">
+                <img
+                  className="card-img-top"
+                  src={`/${objKey.toLowerCase()}.png`}
+                  alt=""
+                />
+                <h5 className="card-title text-center h3 mt-3">
+                  {objKey[0].toUpperCase() + objKey.slice(1)}
+                </h5>
+              </div>
+              <div className="card-footer">
+                <button
+                  className="btn btn-outline-success w-100"
+                  onClick={(e) => handleOptionClick(objKey)}
+                >
+                  View this Category
+                </button>
+                {getSelectedObject([...selOptions, objKey]).hasOwnProperty(
+                  "generate"
+                ) && (
+                  <button
+                    className="btn btn-primary float-end w-100"
+                    onClick={(e) => navigatetoCodeGenerator(objKey)}
+                  >
+                    Generate Boilerplate
+                  </button>
+                )}
+              </div>
+            </div>
+          </Tilt>
         </div>
+      ));
+    } else {
+      const selObj = getSelectedObject();
+      return Object.keys(selObj).map((objKey, index) => (
+        <div className="col-md-3 my-4" key={index}>
+          <Tilt options={tiltOptions}>
+            <div className="card">
+              <div className="card-body">
+                <img
+                  className="card-img-top"
+                  src={`/${objKey.toLowerCase()}.png`}
+                  alt=""
+                />
+                <h5 className="card-title text-center h3 mt-3">
+                  {objKey[0].toUpperCase() + objKey.slice(1)}
+                </h5>
+              </div>
+              <div className="card-footer">
+                {getSelectedObject([...selOptions, objKey]).hasOwnProperty(
+                  "generate"
+                ) ? (
+                  <button
+                    className="btn btn-primary float-end w-100"
+                    onClick={(e) => navigatetoCodeGenerator(objKey)}
+                  >
+                    Generate Boilerplate
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-success w-100"
+                    onClick={(e) => handleOptionClick(objKey)}
+                  >
+                    View this Category
+                  </button>
+                )}
+              </div>
+            </div>
+          </Tilt>
+        </div>
+      ));
+    }
+  };
+
+  return (
+    <div className="vh-100 browse-container">
+      <div className="container light-glassy-effect p-5">
+        <h1 className="display-3">Browser Different NodeJS applications</h1>
+        <h3 className="mb-5">Start by Exploring an application Type</h3>
+        <button
+          className="btn btn-primary"
+          onClick={(e) => setSelOptions(selOptions.slice(0, -1))}
+        > <i class="fas fa-arrow-left    "></i>
+          &nbsp;Back
+        </button>
+        <div className="row">{displayOptions(options)}</div>
       </div>
     </div>
-    {/* Background image */}
-  </header>
-  <section style={{ backgroundColor: "#eee" }}>
-  <div className="container py-5">
-    <div className="row">
-      <div className="col-md-12 col-lg-4 mb-4 mb-lg-0">
-        <div className="card">
-         
-          <div className="card-body">
-          <img
-            src="/icons/chrome.jpeg"
-            className="card-img-top"
-            alt="Laptop"
-          />
-            <div className="d-flex justify-content-between">
-              <p className="small">
-                <a href="#!" className="text-muted">
-                  Laptops
-                </a>
-              </p>
-              <p className="small text-danger">
-                <s>$1099</s>
-              </p>
-            </div>
-            <div className="d-flex justify-content-between mb-3">
-              <h5 className="mb-0">HP Notebook</h5>
-              <h5 className="text-dark mb-0">$999</h5>
-            </div>
-            <div className="d-flex justify-content-between mb-2">
-              <p className="text-muted mb-0">
-                Available: <span className="fw-bold">6</span>
-              </p>
-              <div className="ms-auto text-warning">
-                <i className="fa fa-star" />
-                <i className="fa fa-star" />
-                <i className="fa fa-star" />
-                <i className="fa fa-star" />
-                <i className="fa fa-star" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-6 col-lg-4 mb-4 mb-md-0">
-        <div className="card">
-          <div className="d-flex justify-content-between p-3">
-            <p className="lead mb-0">Today's Combo Offer</p>
-            <div
-              className="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-              style={{ width: 35, height: 35 }}
-            >
-              <p className="text-white mb-0 small">x2</p>
-            </div>
-          </div>
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
-            className="card-img-top"
-            alt="Laptop"
-          />
-          <div className="card-body">
-            <div className="d-flex justify-content-between">
-              <p className="small">
-                <a href="#!" className="text-muted">
-                  Laptops
-                </a>
-              </p>
-              <p className="small text-danger">
-                <s>$1199</s>
-              </p>
-            </div>
-            <div className="d-flex justify-content-between mb-3">
-              <h5 className="mb-0">HP Envy</h5>
-              <h5 className="text-dark mb-0">$1099</h5>
-            </div>
-            <div className="d-flex justify-content-between mb-2">
-              <p className="text-muted mb-0">
-                Available: <span className="fw-bold">7</span>
-              </p>
-              <div className="ms-auto text-warning">
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="far fa-star" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-6 col-lg-4 mb-4 mb-md-0">
-        <div className="card">
-          <div className="d-flex justify-content-between p-3">
-            <p className="lead mb-0">Today's Combo Offer</p>
-            <div
-              className="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-              style={{ width: 35, height: 35 }}
-            >
-              <p className="text-white mb-0 small">x3</p>
-            </div>
-          </div>
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/5.webp"
-            className="card-img-top"
-            alt="Gaming Laptop"
-          />
-          <div className="card-body">
-            <div className="d-flex justify-content-between">
-              <p className="small">
-                <a href="#!" className="text-muted">
-                  Laptops
-                </a>
-              </p>
-              <p className="small text-danger">
-                <s>$1399</s>
-              </p>
-            </div>
-            <div className="d-flex justify-content-between mb-3">
-              <h5 className="mb-0">Toshiba B77</h5>
-              <h5 className="text-dark mb-0">$1299</h5>
-            </div>
-            <div className="d-flex justify-content-between mb-2">
-              <p className="text-muted mb-0">
-                Available: <span className="fw-bold">5</span>
-              </p>
-              <div className="ms-auto text-warning">
-                <i className="fa fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star-half-alt" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  );
+};
 
-  
-
-  </div>
-  
-  )
-}
-
-export default CodeBrowser
+export default CodeBrowser;
