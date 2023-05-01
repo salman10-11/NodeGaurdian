@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import app_config, { structureData } from "../../config";
-import "./codebrowser.css";
+// import "./codebrowser.css";
 import { useNavigate } from "react-router-dom";
 import { Tilt } from "react-tilt";
 
@@ -65,7 +65,7 @@ const CodeBrowser = () => {
               <div className="card-body">
                 <img
                   className="card-img-top"
-                  src={`/${objKey.toLowerCase()}.png`}
+                  src={`/icons/${objKey.toLowerCase()}.png`}
                   alt=""
                 />
                 <h5 className="card-title text-center h3 mt-3">
@@ -103,7 +103,7 @@ const CodeBrowser = () => {
               <div className="card-body">
                 <img
                   className="card-img-top"
-                  src={`/${objKey.toLowerCase()}.png`}
+                  src={`/icons/${objKey.toLowerCase()}.png`}
                   alt=""
                 />
                 <h5 className="card-title text-center h3 mt-3">

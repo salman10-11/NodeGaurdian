@@ -22,11 +22,10 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="navbar" element={<Navbar />} />
-           <Route path="codebrowser" element={<CodeBrowser />} />
+            <Route path="codebrowser" element={<CodeBrowser />} />
           </Route>
           <Route path="user" element={<User />} >
-           <Route path="codegenerator" element={<CodeGenerator />} />
-            
+            <Route path="generator" element={<CodeGenerator />} />
           </Route>
 
 
