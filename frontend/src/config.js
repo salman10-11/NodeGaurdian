@@ -814,7 +814,7 @@ export const structureData = {
       },
       {
         name: "package.json",
-        path: "src",
+        path: "",
         content: `{
           "name": "sb-vue",
           "version": "0.1.0",
@@ -901,10 +901,15 @@ export const structureData = {
   }`,
       },
       {
-        name: "robots.txt",
-        path: "public",
-        content: `User-agent: *
-  Disallow:`,
+        name: "vue.config.js",
+        path: "",
+        content: `module.exports = {
+  lintOnSave: false,
+  devServer: {
+    disableHostCheck: true
+  }
+}
+`,
       },
     ],
   },
