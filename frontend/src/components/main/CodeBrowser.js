@@ -137,7 +137,7 @@ const CodeBrowser = () => {
   };
 
   return (
-    <div className="vh-100 browse-container">
+    <div className="vh-100 browse-container" >
       <div className="container light-glassy-effect p-5">
         <h1 className="display-3">Browser Different NodeJS applications</h1>
         <h3 className="mb-5">Start by Exploring an application Type</h3>

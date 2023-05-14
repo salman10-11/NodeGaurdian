@@ -9,13 +9,14 @@ import Navbar from './components/main/Navbar';
 import User from './components/user';
 import CodeGenerator from './components/user/CodeGenerator';
 import CodeBrowser from './components/main/CodeBrowser';
+import UserAuth from './auth/UserAuth';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/" element={<Navigate to="/main/home" />} />
 
           <Route path="main" element={<Main />} >
             <Route path="home" element={<Home />} />
@@ -24,7 +25,7 @@ function App() {
             <Route path="navbar" element={<Navbar />} />
             <Route path="codebrowser" element={<CodeBrowser />} />
           </Route>
-          <Route path="user" element={<User />} >
+          <Route path="user" element={<UserAuth> <User /> </UserAuth>} >
             <Route path="generator" element={<CodeGenerator />} />
           </Route>
 

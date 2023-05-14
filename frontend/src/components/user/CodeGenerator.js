@@ -151,7 +151,7 @@ const CodeGenerator = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("/back_img4.png")`,
+        backgroundImage: `url("https://buddy.works/tutorials/assets/posts/optimizing-dockerfile-for-node-js-part-1/share-optimizing-dockerfile-nodejs.png")`,
         backgroundSize: "cover",
         minHeight: "100vh",
       }}
@@ -194,7 +194,7 @@ const CodeGenerator = () => {
       </div>
 
       <div className="container py-5">
-        <div className="card">
+        <div className="card my-card">
           <div className="card-body p-5">
             <p className="display-4">
               <span className="fw-bold">NodeJS</span> Boilerplate Code Generator
