@@ -351,156 +351,207 @@ export const structureData = {
         name: "index.js",
         path: "",
         content: `const express = require('express');
-  
-  const userRouter = require('./routers/userRouter');
-  
-  const cors = require('cors');
-  const { PORT } = require('./config');
-  
-  const app = express();
-  
-  app.use(cors({}));
-  
-  app.use(express.json());
-  app.use('/user', userRouter);
-  
-  app.use(express.static('./static/uploads'))
-  
-  app.get('/', (req, res) => {
-      console.log('Request at index');
-      res.status(299).send('Working Perfectly!!');
-  })
-  
-  app.listen(PORT, () => console.log(\`Express server has started at \${PORT}\`));`,
+
+const userRouter = require('./routers/userRouter');
+
+const cors = require('cors');
+const { PORT } = require('./config');
+
+const app = express();
+
+app.use(cors({}));
+
+app.use(express.json());
+app.use('/user', userRouter);
+
+app.use(express.static('./static/uploads'))
+
+app.get('/', (req, res) => {
+    console.log('Request at index');
+    res.status(299).send('Working Perfectly!!');
+})
+
+app.listen(PORT, () => console.log(\`Express server has started at \${PORT}\`));`,
       },
       {
-        name: "App.js",
-        path: "src",
-        content: `import React from 'react';
-  import './App.css';
-  
-  function App() {
-  return (
-  <div className="App">
-      <h1>React Application</h1>
-  </div>
-  );
-  }
-  
-  export default App;`,
+        name: "connection.js",
+        path: "",
+        content: `const mongoose = require('mongoose');
+
+// Replace DB_URL with your MongoDB URL
+mongoose.connect(DB_URL)
+  .then((result) => {
+      console.info('Connected to MongoDB');
+  }).catch((err) => {
+      console.error('Error connecting to MongoDB', err);
+  });
+
+module.exports = mongoose;`,
       },
       {
-        name: "index.css",
-        path: "src",
-        content: "",
-      },
-      {
-        name: "App.css",
-        path: "src",
-        content: "",
+        name: "config.js",
+        path: "",
+        content: `
+const api_config = {
+    PORT : 5000
+}
+
+module.exports = api_config;`,
       },
       {
         name: "package.json",
         path: "",
         content: `{
-  "name": "react-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-  "react": "^17.0.1",
-  "react-dom": "^17.0.1",
-  "react-scripts": "4.0.1",
-  "web-vitals": "^0.2.4"
-  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
+    "start": "node index",
+    "dev": "nodemon index --ignore archives"
   },
-  "eslintConfig": {
-  "extends": [
-      "react-app",
-      "react-app/jest"
-  ]
-  },
-  "browserslist": {
-  "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-  ],
-  "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-  ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.22"
   }
-  }`,
+}
+`,
       },
       {
-        name: "README.md",
-        path: "",
-        content: "",
+        name: "userModel.js",
+        path: "models",
+        content: `const { Schema, model } = require("../connection");
+
+const userSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, default: "user" },
+  avatar: { type: String },
+  created_at: Date,
+  updated_at: Date,
+});
+
+
+module.exports = model("user", userSchema);
+`,
       },
       {
-        name: "index.html",
-        path: "public",
-        content: `<!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta
-      name="description"  
-      content="Web site created using create-react-app"
-  />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>React App</title>
-  </head>
-  <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  </body>
-  </html>`,
-      },
-      {
-        name: "manifest.json",
-        path: "public",
-        content: `{
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-  {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-  },
-  {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-  },
-  {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-  }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-  }`,
-      },
-      {
-        name: "robots.txt",
-        path: "public",
-        content: `User-agent: *
-  Disallow:`,
+        name: "userRouter.js",
+        path: "routers",
+        content: `const express = require("express");
+
+const router = express.Router();
+const Model = require("../models/userModel");
+
+router.get("/", (req, res) => {
+  console.log("Request at user index");
+  res.status(299).send("UserRouter Working Perfectly!!");
+});
+
+router.post("/add", (req, res) => {
+  new Model(req.body)
+    .save()
+    .then((result) => {
+      console.log("User Data Saved");
+      res.status(200).json({ status: "success", result });
+    })
+    .catch((err) => {
+      console.error("Error saving user data", err);
+      res.status(500).send("Error saving user data");
+    });
+});
+
+router.post("/auth", (req, res) => {
+  Model.findOne({ email: req.body.email })
+    .then((result) => {
+      if (result) {
+        new Model(result).comparePassword(req.body.password, (err, isMatch) => {
+          if (err || !isMatch) {
+            console.error("Error authenticating user", err);
+            res.status(500).send({status: "failed"});
+          } else {
+            console.log("User authenticated");
+            res.json({ status: "success", result });
+          }
+        });
+      } else {
+        console.error("Error authenticating user");
+        res.status(501).json({status: "failed"});
+      }
+    })
+    .catch((err) => {
+      console.error("Error authenticating user", err);
+      res.status(502).json({status: "failed"});
+    });
+
+  // .then((result) => {
+  //   console.log("User Data Saved");
+  //   res.status(201).json({ status: "success", result });
+  // })
+  // .catch((err) => {
+  //   console.error("Error saving user data", err);
+  //   res.status(500).send("Error saving user data");
+  // });
+});
+
+router.get("/getall", (req, res) => {
+  Model.find()
+    .then((result) => {
+      console.log("User Data Retrieved");
+      res.status(200).json({ status: "success", result });
+    })
+    .catch((err) => {
+      console.error("Error retrieving user data", err);
+      res.status(500).send("Error retrieving user data");
+    });
+});
+
+router.get("/getbyid/:id", (req, res) => {
+  Model.findById(req.params.id)
+    .then((result) => {
+      console.log("User Data Retrieved");
+      res.status(200).json({ status: "success", result });
+    })
+    .catch((err) => {
+      console.error("Error retrieving user data", err);
+      res.status(500).send("Error retrieving user data");
+    });
+});
+
+router.put("/update/:id", (req, res) => {
+  Model.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((result) => {
+      console.log("User Data Updated");
+      res.status(200).json({ status: "success", result });
+    })
+    .catch((err) => {
+      console.error("Error updating user data", err);
+      res.status(500).send("Error updating user data");
+    });
+});
+
+router.delete("/delete/:id", (req, res) => {
+  Model.findByIdAndDelete(req.params.id)
+    .then((result) => {
+      console.log("User Data Deleted");
+      res.status(200).json({ status: "success", result });
+    })
+    .catch((err) => {
+      console.error("Error deleting user data", err);
+      res.status(500).send("Error deleting user data");
+    });
+});
+
+module.exports = router;
+`,
       },
     ],
   },
@@ -1872,26 +1923,31 @@ const app_config = {
           frontend: "react",
           backend: "express",
           generate: true,
+          multi: true,
         },
         mevn: {
           frontend: "vue",
           backend: "express",
           generate: true,
+          multi: true,
         },
         mean: {
           frontend: "angular",
           backend: "express",
           generate: true,
+          multi: true,
         },
         pern: {
           frontend: "react",
           backend: "express",
           generate: true,
+          multi: true,
         },
         fern: {
           frontend: "react",
           backend: "express",
           generate: true,
+          multi: true,
         },
       },
       frontend: {
