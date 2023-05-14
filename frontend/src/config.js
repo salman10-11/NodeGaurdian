@@ -911,6 +911,442 @@ export const structureData = {
 }
 `,
       },
+      {
+        name: "package.json",
+        path: "",
+        content: `{
+          "name": "mevn-starter",
+          "version": "0.1.0",
+          "private": true,
+          "scripts": {
+            "serve": "vue-cli-service serve",
+            "build": "vue-cli-service build",
+            "lint": "vue-cli-service lint"
+          },
+          "dependencies": {
+            "axios": "^0.26.0",
+            "core-js": "^3.6.5",
+            "vue": "^2.6.11",
+            "vue-router": "^3.2.0",
+            "vuex": "^3.4.0",
+            "vue-cookies": "^1.7.4"
+          },
+          "devDependencies": {
+            "@vue/cli-plugin-babel": "~4.5.15",
+            "@vue/cli-plugin-eslint": "~4.5.15",
+            "@vue/cli-plugin-router": "~4.5.15",
+            "@vue/cli-plugin-vuex": "~4.5.15",
+            "@vue/cli-service": "~4.5.15",
+            "@vue/eslint-config-standard": "^5.1.2",
+            "babel-eslint": "^10.1.0",
+            "eslint": "^6.7.2",
+            "eslint-plugin-import": "^2.20.2",
+            "eslint-plugin-node": "^11.1.0",
+            "eslint-plugin-promise": "^4.2.1",
+            "eslint-plugin-standard": "^4.0.0",
+            "eslint-plugin-vue": "^6.2.2",
+            "node-sass": "^4.12.0",
+            "sass-loader": "^8.0.2",
+            "vue-template-compiler": "^2.6.11"
+          }
+        }
+        `,
+      },
+      {
+        name: "babel.config.js",
+        path: "",
+        content: `module.exports = {
+          presets: [
+            '@vue/cli-plugin-babel/preset'
+          ]
+        }
+        `,
+      },
+      {
+        name: ".eslintrc.js",
+        path: "",
+        content: `module.exports = {
+          root: true,
+          env: {
+            node: true
+          },
+          extends: [
+            'plugin:vue/essential',
+            '@vue/standard'
+          ],
+          parserOptions: {
+            parser: 'babel-eslint'
+          },
+          rules: {
+            'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+            'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+          }
+        }
+        `,
+      },
+      {
+        name: ".editorconfig",
+        path: "",
+        content: `[*.{js,jsx,ts,tsx,vue}]
+        indent_style = space
+        indent_size = 2
+        trim_trailing_whitespace = true
+        insert_final_newline = true
+        `,
+      },
+      {
+        name: "Welcome.vue",
+        path: "src/components",
+        content: `<template>
+        <div class="welcome">
+          <h3>¡Bienvenido a Bipi!</h3>
+          <h4>Selecciona una de las siguientes regiones para ver los vehículos:</h4>
+          <ul class="welcome__list">
+            <li class="welcome__item" v-for="(region, index) in regions" :key="index">
+              <router-link class="welcome__button" tag="button" :to="\`/vehicles/${region.key}\`">
+                <img class="welcome__img" :src="require(\`@/assets/${region.key}.png\`)"/>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </template>
+      
+      <script>
+      export default {
+        props: {
+          regions: Array,
+          required: true,
+        },
+      };
+      </script>
+      
+      <style lang="scss" scoped>
+      .welcome {
+        &__list {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+        }
+      
+        &__button {
+          padding: 15px;
+          cursor: pointer;
+        }
+      
+        &__img {
+          height: 30px;
+        }
+      }
+      </style>
+      `,
+      },
+      {
+        name: "regions.js",
+        path: "src/constants",
+        content: `export default [
+          { 'key': 'es', name: 'España' }
+        ]`,
+      },
+      {
+        name: "api.js",
+        path: "src/plugins",
+        content: `import axios from 'axios'
+
+        const API_BASE_URL = 'https://skxvns.sse.codesandbox.io/'
+        
+        export default {
+          install (Vue) {
+            const axiosInstance = axios.create({
+              baseURL: API_BASE_URL
+            })
+        
+            axiosInstance.interceptors.response.use(
+              (response) => {
+                return response.data
+              },
+              (error) => {
+                return Promise.reject(error);
+              })
+        
+            Vue.prototype.$api = axiosInstance
+          }
+        }`,
+      },
+      {
+        name: "index.js",
+        path: "src/router",
+        content: `import Vue from "vue";
+        import VueRouter from "vue-router";
+        
+        Vue.use(VueRouter);
+        
+        const routes = [
+          {
+            path: "/",
+            name: "Home",
+            component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue")
+          },
+          {
+            path: "/about",
+            name: "About",
+            component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue")
+          },
+          {
+            path: "/login",
+            name: "Login",
+            component: () => import(/* webpackChunkName: "login" */ "@/views/Login.vue")
+          },
+          {
+            path: "/vehicles/:region",
+            name: "Vehicles",
+            props: true,
+            component: () =>
+              import(/* webpackChunkName: "vehicles" */ "@/views/Vehicles.vue")
+          }
+        ];
+        
+        const router = new VueRouter({
+          mode: "history",
+          base: process.env.BASE_URL,
+          routes
+        });
+        
+        export default router;
+        `,
+      },
+      {
+        name: "About.vue",
+        path: "src/views",
+        content: `<template>
+        <div class="about">
+          <h1>¿Qué es Bipi?</h1>
+          <p>Bipi es la nueva forma de tener coche sin comprarlo adaptándose a tus necesidades en todo momento.</p>
+        </div>
+      </template>
+      `,
+      },
+      {
+        name: "Home.vue",
+        path: "src/views",
+        content: `<template>
+        <div class="home">
+          <img alt="Bipi logo" src="../assets/bipi-logo.svg"/>
+          <Welcome :regions="regions"/>
+        </div>
+      </template>
+      
+      <script>
+      import regions from '@/constants/regions'
+      import Welcome from '@/components/Welcome'
+      
+      export default {
+        components: {
+          Welcome
+        },
+        data () {
+          return {
+            regions: []
+          }
+        },
+        created () {
+          this.regions = regions
+        }
+      }
+      </script>
+      `,
+      },
+      {
+        name: "Login.vue",
+        path: "src/views",
+        content: `<template>
+        <div class="login">
+          <img alt="Bipi logo" src="../assets/bipi-logo.svg"/>
+          <form class="login__form" @submit.prevent="sendForm">
+            <div class="login__field">
+              <label class="login__field-label" for="email">Email</label>
+              <input class="login__field-input" type="email" name="email" id="email" v-model="email">
+            </div>
+            <div class="login__field">
+              <label class="login__field-label" for="password">Contraseña</label>
+              <input class="login__field-input" type="password" name="password" id="password" v-model="password">
+            </div>
+            <div class="login__submit">
+              <button class="login__submit-button" type="submit">Enviar</button>
+            </div>
+          </form>
+          <p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+        </div>
+      </template>
+      
+      <script>
+      export default {
+        data () {
+          return {
+            email: '',
+            password: '',
+            errors: []
+          }
+        },
+        methods: {
+          async sendForm() {
+            this.errors = []
+      
+            if (!this.email) {
+              this.errors.push('El email es obligatorio')
+            }
+      
+            if (!this.password) {
+              this.errors.push('La contraseña es obligatoria')
+            }
+      
+            if (this.errors.length) {
+              return
+            }
+          }
+        }
+      }
+      </script>
+      
+      <style lang="scss" scoped>
+      .login {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border: 1px solid #2c3e50;
+        width: 50%;
+        margin: 0 auto;
+        border-radius: 20px;
+      
+        &__form {
+          padding: 0 20%;
+        }
+      
+        &__field {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          margin-bottom: 20px;
+        }
+      
+        &__field-input {
+          width: 100%;
+        }
+      }
+      </style>`,
+      },
+      {
+        name: "Vehicles.vue",
+        path: "src/views",
+        content: `<template>
+        <div class="vehicles">
+          <div class="vehicles__header">
+            <span class="vehicles__header-title">País: {{ country }}</span>
+          </div>
+          <ul class="vehicles__list">
+            <div class="vehicles__list-item" v-for="vehicle in vehicles" :key="vehicle._id" :class="{ 'vehicles__list-item-offer': vehicle.isOnOffer }">
+              <h4 class="vehicles__list-item-title">{{ vehicle.brand }} {{ vehicle.model }}</h4>
+              <div class="vehicles__list-item-prop-list">
+                <div class="vehicles__list-item-prop">
+                  <span class="vehicles__list-item-prop-key">Marca: </span>
+                  <span class="vehicles__list-item-prop-value">{{ vehicle.brand }}</span>
+                </div>
+                <div class="vehicles__list-item-prop">
+                  <span class="vehicles__list-item-prop-key">Modelo: </span>
+                  <span class="vehicles__list-item-prop-value">{{ vehicle.model }}</span>
+                </div>
+                <div class="vehicles__list-item-prop" v-if="vehicle.isOnOffer">
+                  <span class="vehicles__list-item-prop-key">Precio: </span>
+                  <span class="vehicles__list-item-prop-value">{{ vehicle.price }}€</span>
+                </div>
+                <div class="vehicles__list-item-prop" v-else>
+                  <span class="vehicles__list-item-prop-key">Precio en oferta: </span>
+                  <span class="vehicles__list-item-prop-value">{{ vehicle.priceOnOffer }}€</span>
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </template>
+      
+      <script>
+      import regions from '@/constants/regions'
+      
+      export default {
+        props: {
+          region: {
+            type: String,
+            required: true
+          }
+        },
+        data () {
+          return {
+            country: '',
+            vehicles: []
+          }
+        },
+        async created () {
+          const region = regions.find((region) => region.key === this.region)
+          this.country = region.name
+      
+          const vehicles = await this.$api.get('vehicles', { params: { region: this.region } })
+          this.vehicles = vehicles
+        }
+      }
+      </script>
+      
+      <style lang="scss" scoped>
+      .vehicles {
+        &__header {
+          display: flex;
+          justify-content: space-evenly;
+        }
+      
+        &__list {
+          list-style: none;
+          padding: 0;
+        }
+      
+        &__list-item {
+          border: 1px solid #2c3e50;
+          border-radius: 20px;
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+        }
+      
+        &__list-item-offer {
+          border: 1px solid #EC0044;
+        }
+      
+        &__list-item-prop-list {
+          display: flex;
+          justify-content: space-evenly;
+        }
+      
+        &__list-item-prop-key {
+          font-weight: bold;
+        }
+      }
+      </style>`,
+      },
+      {
+        name: "main.js",
+        path: "",
+        content: `import Vue from 'vue'
+        import App from './App.vue'
+        import router from './router'
+        import api from './plugins/api'
+        
+        Vue.use(api)
+        
+        Vue.config.productionTip = false
+        
+        new Vue({
+          router,
+          render: h => h(App)
+        }).$mount('#app')
+        `,
+      },
     ],
   },
   mean: {
