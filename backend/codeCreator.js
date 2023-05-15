@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 const archiver = require("archiver");
-const getPackageVersion = require("./versionChecker");
 
 const createZip = (path, zipName) => {
     // Create a new ZIP archive
