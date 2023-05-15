@@ -1045,6 +1045,7 @@ module.exports = router;
         insert_final_newline = true
         `,
       },
+
       {
         name: "Welcome.vue",
         path: "src/components",
@@ -1054,8 +1055,8 @@ module.exports = router;
           <h4>Selecciona una de las siguientes regiones para ver los vehículos:</h4>
           <ul class="welcome__list">
             <li class="welcome__item" v-for="(region, index) in regions" :key="index">
-              <router-link class="welcome__button" tag="button" :to="\`/vehicles/${region.key}\`">
-                <img class="welcome__img" :src="require(\`@/assets/${region.key}.png\`)"/>
+              <router-link class="welcome__button" tag="button" :to="\`/vehicles\`">
+                <img class="welcome__img" :src="require(\`@/assets/$.png\`)"/>
               </router-link>
             </li>
           </ul>
@@ -1093,6 +1094,7 @@ module.exports = router;
       </style>
       `,
       },
+
       {
         name: "regions.js",
         path: "src/constants",

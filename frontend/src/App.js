@@ -10,11 +10,14 @@ import User from './components/user';
 import CodeGenerator from './components/user/CodeGenerator';
 import CodeBrowser from './components/main/CodeBrowser';
 import UserAuth from './auth/UserAuth';
+import UserProfile from './components/user/UserProfile';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
+      <Toaster position='top-center' />
         <Routes>
           <Route path="/" element={<Navigate to="/main/home" />} />
 
@@ -27,6 +30,7 @@ function App() {
           </Route>
           <Route path="user" element={<UserAuth> <User /> </UserAuth>} >
             <Route path="generator" element={<CodeGenerator />} />
+            <Route path="profile" element={<UserProfile />} />
           </Route>
 
 
