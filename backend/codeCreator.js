@@ -343,4 +343,4 @@ const packageBuilder = (libraries) => {
 // ]);
 // console.log(content);
 
-module.exports = createCode;
+module.exports = {createCode};
