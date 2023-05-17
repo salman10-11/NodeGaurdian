@@ -3,33 +3,33 @@ const fs = require("fs");
 const archiver = require("archiver");
 
 const createZip = (path, zipName) => {
-    // Create a new ZIP archive
-    const archive = archiver("zip", { zlib: { level: 9 } });
-  
-    // Define the source folder to be zipped
-    // const sourceFolder = './my-folder';
-    const sourceFolder = path;
-  
-    // Define the output file name and path
-    // const outputFilePath = './my-folder.zip';
-    const outputFilePath = `./archives/${zipName}`;
-  
-    // Create a write stream to the output file
-    const output = fs.createWriteStream(outputFilePath);
-  
-    // Pipe the archive data to the output file
-    archive.pipe(output);
-  
-    // Add the contents of the source folder to the archive
-    archive.directory(sourceFolder, false);
-  
-    // Finalize the archive
-    archive.finalize();
-  
-    // Log a message when the archive is finished
-    output.on("close", function () {
-      console.log(`Successfully created ZIP archive at ${outputFilePath}`);
-    });
+  // Create a new ZIP archive
+  const archive = archiver("zip", { zlib: { level: 9 } });
+
+  // Define the source folder to be zipped
+  // const sourceFolder = './my-folder';
+  const sourceFolder = path;
+
+  // Define the output file name and path
+  // const outputFilePath = './my-folder.zip';
+  const outputFilePath = `./archives/${zipName}`;
+
+  // Create a write stream to the output file
+  const output = fs.createWriteStream(outputFilePath);
+
+  // Pipe the archive data to the output file
+  archive.pipe(output);
+
+  // Add the contents of the source folder to the archive
+  archive.directory(sourceFolder, false);
+
+  // Finalize the archive
+  archive.finalize();
+
+  // Log a message when the archive is finished
+  output.on("close", function () {
+    console.log(`Successfully created ZIP archive at ${outputFilePath}`);
+  });
 };
 
 const boilerPlateData = {
@@ -202,145 +202,52 @@ const checkFolderCreated = (folderPath) => {
   }
 };
 
-const createCode = (dependencies, files, filename, cb) => {
-  
+const createCode = (dependencies, files, name, cb) => {
+
   const packageContent = packageBuilder(dependencies);
   // console.log(packageContent);
   files.forEach((file) => {
     checkFolderCreated(path.join(BASE_PATH, file.path));
     createFiles(path.join(BASE_PATH, file.path, file.name), file.content);
   });
-  createZip(BASE_PATH, `${filename}.zip`);
-  cb(`${filename}.zip`);
+  createZip(BASE_PATH, `${name}.zip`);
+  cb(`${name}.zip`);
+};
+
+const createMultiCode = (frontend, backend, name, cb) => {
+
+  const dir = path.join(__dirname, "BoilerPlateCodes", name);
+  checkFolderCreated(dir);
+  const frontendDir = path.join(dir, 'frontend');
+  checkFolderCreated(frontendDir);
+  
+  frontend.files.forEach((file) => {
+    checkFolderCreated(path.join(frontendDir, file.path));
+    createFiles(path.join(frontendDir, file.path, file.name), file.content);
+  });
+  
+  const backendDir = path.join(dir, 'backend');
+  checkFolderCreated(backendDir);
+  backend.files.forEach((file) => {
+    checkFolderCreated(path.join(backendDir, file.path));
+    createFiles(path.join(backendDir, file.path, file.name), file.content);
+  });
+  createZip(path.join(__dirname, 'BoilerPlateCodes', `${name}.zip`), `${name}.zip`);
+  cb(`${name}.zip`);
 };
 
 const packageBuilder = (libraries) => {
-  let dependencies = ``;  
-  libraries.forEach( async ({name, package, version}) => {
+  let dependencies = ``;
+  libraries.forEach(async ({ name, package, version }) => {
     // let version = await getPackageVersion(package);
     // console.log(version);
     dependencies += `"${package}": "^${version}",\n`;
   });
   console.log('dependencies', dependencies);
-// console.log(dependencies);
+  // console.log(dependencies);
   return dependencies;
 
 }
-// createCode();
 
-// const content = packageBuilder([
-//   {
-//     name: "React",
-//     icon: "fab fa-react",
-//     package: "react",
-//     category: "UI",
-//     dependencyPackages: ["react-dom", "react-scripts"],
-//   },
-//   {
-//     name: "Redux",
-//     icon: "fab fa-react",
-//     package: "redux",
-//     category: "Utility",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Redux",
-//     icon: "fab fa-react",
-//     package: "react-redux",
-//     category: "Utility",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Router",
-//     icon: "fab fa-react",
-//     package: "react-router-dom",
-//     category: "Routing",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "Formik",
-//     icon: "fab fa-react",
-//     package: "formik",
-//     category: "Form Handling",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "Yup",
-//     icon: "fab fa-react",
-//     package: "yup",
-//     category: "Form Handling",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "Sweetalert 2",
-//     icon: "fab fa-react",
-//     package: "sweetalert2",
-//     category: "UI",
-//     dependencyPackages: ["sweetalert2-react-content"],
-//   },
-//   {
-//     name: "Framer Motion",
-//     icon: "fab fa-react",
-//     package: "framer-motion",
-//     category: "UI",
-//     dependencyPackages: ["sweetalert2-react-content"],
-//   },
-//   {
-//     name: "React-Bootstrap",
-//     icon: "fab fa-react",
-//     package: "react-bootstrap",
-//     dependencyPackages: ["bootstrap", "react-router-dom"],
-//   },
-//   {
-//     name: "React-Toastify",
-//     icon: "fab fa-react",
-//     package: "react-toastify",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Icons",
-//     icon: "fab fa-react",
-//     package: "react-icons",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Select",
-//     icon: "fab fa-react",
-//     package: "react-select",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Datepicker",
-//     icon: "fab fa-react",
-//     package: "react-datepicker",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Table",
-//     icon: "fab fa-react",
-//     package: "react-table",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Loading",
-//     icon: "fab fa-react",
-//     package: "react-loading",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Loading-Overlay",
-//     icon: "fab fa-react",
-//     package: "react-loading-overlay",
-//     dependencyPackages: [],
-//   },
-//   {
-//     name: "React-Loading-Skeleton",
-//     icon: "fab fa-react",
-//     package: "react-loading-skeleton",
-//     dependencyPackages: [],
-//   },
-  
-// ]);
-// console.log(content);
 
-module.exports = {createCode};
+module.exports = { createCode, createMultiCode };

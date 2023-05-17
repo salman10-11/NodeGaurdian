@@ -5,3 +5,99 @@
 .my-card{
   background-color: rgba(255, 255, 255, 0.863);
 }
+
+.loginMain
+
+{
+  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\loginbg.jpeg);
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logincard
+{
+  background-color: #fff5;
+  color: red;
+  backdrop-filter: blur(2px);
+  box-shadow: 3px 3px 5px 6px rgb(126, 122, 122),-3px -3px 5px 6px rgb(126, 122, 122);;
+}
+
+.logincard label 
+{color:red}
+.logincard p 
+{color:red}
+
+.sbutton{
+  color: red;
+  background-color: blue;
+}
+
+.signupMain{
+  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\loginbg.jpeg);
+}
+
+.sbutton:hover
+{
+  color:black;
+background-color: yellow;
+}
+.signCard
+{
+  border-radius: 25px;
+  background-color: rgba(214, 202, 202, 0.333);
+}
+
+.sinbutton{
+  color: red;
+  background-color: blue;
+}
+.sinbutton:hover{
+  color: black;
+  background-color: yellow;
+}
+
+.signCard label{
+  color: red;
+}
+
+.myslide1{
+  height: 100vh; 
+  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s4.webp );
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.myslide2{
+  height: 100vh; 
+  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s5.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.myslide3{
+  height: 100vh; 
+  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s6.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.text-box{
+  text-align: center;
+  color: red;
+  font-size: 70px;
+  padding-top: 200px;
+}
+.myslide1 p{
+  text-align: center;
+  color: yellowgreen;
+  padding-top: 0px;
+  font-size: 25px;
+}
+
+.card-title{
+  color: black;
+}
+.card-text{
+  color: blue;
+}

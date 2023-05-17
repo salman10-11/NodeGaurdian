@@ -1,86 +1,70 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom';
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Pagination, Navigation } from "swiper";
 
 const Home = () => {
   return (
-    <header>
-      {/* Navbar */}
-      {/* <nav className="navbar navbar-expand-lg navbar-light bg-white">
-    <div className="container-fluid">
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarExample01"
-        aria-controls="navbarExample01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i className="fas fa-bars" />
-      </button>
-      <div className="collapse navbar-collapse" id="navbarExample01">
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item active">
-            <a className="nav-link" aria-current="page" href="#">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Features
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Pricing
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              About
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> */}
-      {/* Navbar */}
-      {/* Background image */}
-      <div
-        className="p-5  bg-image"
-        style={{
-          backgroundImage:
-            'url("https://mdbcdn.b-cdn.net/img/new/slides/041.webp")',
-          height: 400
-        }}
-      >
-        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>
-          <div className="d-flex  h-100">
-            <div className="text-white">
-              <h1 className="mb-3">NodeGuardian</h1>
-              <h4 className="mb-3">BoilerPlate Code</h4>
-              <NavLink className="btn btn-outline-light btn-lg" to="/main/codebrowser" role="button">
-                Generate Boilerplate Code          </NavLink>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Background image */}
+    <div>
 
-      <div className='mt-4'>
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <div className='myslide1'>
+            <h1 className='text-box'>
+              NODE GAURDIAN</h1>
+            <p className='p'>
+              Using a Node.js boilerplate can save time and effort by providing a foundation for your project,
+              allowing you to focus on building your application's specific functionality rather than setting up
+              the initial structure.</p>
+
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <div className='myslide2 w-lg-100'>
+
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <div className='myslide3 w-lg-100'>
+
+          </div>
+        </SwiperSlide>
+      </Swiper>
+
+      <div>
+        <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
           <div className="col">
             <div className="card h-100">
               <img
-                src="https://codetru.com/images/all/react-card.png"
+                src="https://www.thinktanker.io/wp-content/uploads/2021/03/share-nodejs-logo.png"
                 className="card-img-top"
                 alt="Skyscrapers"
               />
               <div className="card-body">
-                <h5 className="card-title">React</h5>
+                <h5 className="card-title">Node.js</h5>
                 <p className="card-text">
-                  This is a wider card with supporting text below as a natural lead-in
-                  to additional content. This content is a little bit longer.
+                  Node.js is an open-source, cross-platform runtime environment that allows developers to run JavaScript
+                  code on the server-side. It uses the V8 JavaScript engine, which is the same engine that powers the
+                  Google Chrome web browser. Node.js provides an event-driven, non-blocking I/O (input/output) model,
+                  making it efficient and scalable for building network applications.
                 </p>
               </div>
               <div className="card-footer">
@@ -91,15 +75,17 @@ const Home = () => {
           <div className="col">
             <div className="card h-100">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTEcXrBTDXuCy1d4txTeDzqFvHjSa_lInudA&usqp=CAU"
+                src="https://kobaltsolutions.com/wp-content/uploads/2021/04/Screen-Shot-2021-04-08-at-4.06.03-PM.png"
                 className="card-img-top"
                 alt="Los Angeles Skyscrapers"
               />
               <div className="card-body">
-                <h5 className="card-title">Node.js</h5>
+                <h5 className="card-title">React.js</h5>
                 <p className="card-text">
-                  This card has supporting text below as a natural lead-in to additional
-                  content.
+                  React.js, also known as React, is an open-source JavaScript library developed by Facebook.
+                  It is primarily used for building user interfaces (UIs) for web applications.
+                  React allows developers to create reusable UI components and efficiently update and render them
+                  when the underlying data changes.
                 </p>
               </div>
               <div className="card-footer">
@@ -110,16 +96,17 @@ const Home = () => {
           <div className="col">
             <div className="card h-100">
               <img
-                src="https://softprodigy.com/wp-content/uploads/2019/07/express-js.png"
+                src="https://codedamn.com/assets/images/learnpaths/og/frontend.png"
                 className="card-img-top"
                 alt="Palm Springs Road"
               />
               <div className="card-body">
-                <h5 className="card-title">Express.js</h5>
+                <h5 className="card-title">Frontend</h5>
                 <p className="card-text">
-                  This is a wider card with supporting text below as a natural lead-in
-                  to additional content. This card has even longer content than the
-                  first to show that equal height action.
+                  Frontend, also known as client-side development, refers to the part of web development
+                  that focuses on the user-facing aspects of a website or web application.
+                  It involves creating and implementing the visual and interactive elements that
+                  users see and interact with in their web browsers.
                 </p>
               </div>
               <div className="card-footer">
@@ -130,7 +117,12 @@ const Home = () => {
         </div>
 
       </div>
-    </header>
+
+    </div>
+
+
+
+
 
 
   )

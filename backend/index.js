@@ -16,6 +16,10 @@ app.use('/user', userRouter);
 app.use('/code', codeRouter);   
 app.use('/util', utilRouter);   
 
+
+app.use(express.static('./archives'));
+app.use(express.static('./static/uploads'));
+
 app.get('/', (req, res) => {
     res.send('Working Fine');
 });

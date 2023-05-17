@@ -1,4 +1,4 @@
-const {createCode} = require('../codeCreator');
+const {createCode, createMultiCode} = require('../codeCreator');
 const codeModel = require("../models/codeModel");
 
 const router = require("express").Router();
