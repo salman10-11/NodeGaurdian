@@ -63,21 +63,21 @@ background-color: yellow;
 
 .myslide1{
   height: 100vh; 
-  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s4.webp );
+  /* background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\ ); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 .myslide2{
   height: 100vh; 
-  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s5.webp);
+  /* background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s5.webp); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 .myslide3{
   height: 100vh; 
-  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s6.webp);
+  /* background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\s6.webp); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
