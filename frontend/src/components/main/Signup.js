@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
 
@@ -14,11 +15,14 @@ const SignupSchema = Yup.object().shape({
 
 const Signup = () => {
 
+  const navigate = useNavigate();
+
   const signupForm = useFormik({
     initialValues: {
         name : '',
         email : '',
         password : '',
+        createdAt: new Date()
     },
 
     onSubmit : async (values, {setSubmitting, resetForm}) => {
@@ -32,6 +36,9 @@ const Signup = () => {
         });
 
         console.log(res.status);
+        if(res.status === 200){
+          navigate('/main/login');
+        }
 
         if(res.status === 200){
           Swal.fire({
@@ -60,7 +67,7 @@ const Signup = () => {
                 <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                   Sign up
                 </p>
-                <form className="mx-1 mx-md-4">
+                <form className="mx-1 mx-md-4" onSubmit={signupForm.handleSubmit}>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fas fa-user fa-lg me-3 fa-fw" />
                     <div className="  flex-fill mb-0">
@@ -69,10 +76,12 @@ const Signup = () => {
                       </label>
                       <input
                         type="text"
-                        id="form3Example1c"
+                        id="name"
+                        onChange={signupForm.handleChange}
+                        value={signupForm.values.name}
                         className="form-control"
                       />
-                      
+                      <span className="text-danger">{signupForm.errors.name}</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row align-items-center mb-4">
@@ -83,10 +92,12 @@ const Signup = () => {
                       </label>
                       <input
                         type="email"
-                        id="form3Example3c"
+                        id="email"
+                        onChange={signupForm.handleChange}
+                        value={signupForm.values.email}
                         className="form-control"
                       />
-                      
+                      <span className="text-danger">{signupForm.errors.email}</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row align-items-center mb-4">
@@ -97,10 +108,12 @@ const Signup = () => {
                       </label>
                       <input
                         type="password"
-                        id="form3Example4c"
+                        id="password"
+                        onChange={signupForm.handleChange}
+                        value={signupForm.values.password}
                         className="form-control"
                       />
-                     
+                      <span className="text-danger">{signupForm.errors.password}</span>
                     </div>
                   </div>
                   <div className="d-flex flex-row align-items-center mb-4">
@@ -114,7 +127,7 @@ const Signup = () => {
                         id="form3Example4cd"
                         className="form-control"
                       />
-                      
+
                     </div>
                   </div>
                   <div className="form-check d-flex justify-content-center mb-5">
@@ -130,7 +143,7 @@ const Signup = () => {
                     </label>
                   </div>
                   <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" className="btn btn-primary btn-lg sinbutton">
+                    <button type="submit" className="btn btn-primary btn-lg sinbutton">
                       Register
                     </button>
                   </div>

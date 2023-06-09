@@ -25,7 +25,7 @@ const Home = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className='myslide1'>
+          <div className='myslide1' style={{backgroundImage: `url('/images/s4.webp')`}}>
             <h1 className='text-box'>
              <b> NODE GAURDIAN </b></h1>
             <p className='p'>
@@ -37,13 +37,13 @@ const Home = () => {
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className='myslide2 w-lg-100'>
+          <div className='myslide2 w-lg-100' style={{backgroundImage: `url('/images/s5.webp')`}}>
 
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className='myslide3 w-lg-100'>
+          <div className='myslide3 w-lg-100' style={{backgroundImage: `url('/images/s6.webp')`}}>
 
           </div>
         </SwiperSlide>
