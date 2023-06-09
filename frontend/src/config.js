@@ -11977,9 +11977,11 @@ const app_config = {
           generate: true,
           main : "photoshop"
       },
-      illustrator: {},
-      "after-effects": {},
-      premiere: {},
+      illustrator: {
+        generate: true,
+          main : "illustrator"
+      },
+      
     },
     extension: {
       browser: {
