@@ -23,7 +23,7 @@ const Navbar = () => {
       {/* Collapsible wrapper */}
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         {/* Navbar brand */}
-        <a className="navbar-brand mt-2 mt-lg-0" href="#">
+        <a className="navbar-brand mt-2 mt-lg-0" href="/main/home">
           <img
             src="/logo.png"
             height={50}
@@ -34,18 +34,18 @@ const Navbar = () => {
         {/* Left links */}
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              Dashboard
+            <a className="nav-link" href="/main/signup">
+              signup
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              Team
+            <a className="nav-link" href="/main/home">
+              home
             </a>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/main/codebrowser">
-              Browse Stacks
+              code browser
             </NavLink>
           </li>
         </ul>

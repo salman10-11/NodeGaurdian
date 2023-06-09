@@ -27,7 +27,7 @@ const Home = () => {
         <SwiperSlide>
           <div className='myslide1'>
             <h1 className='text-box'>
-              NODE GAURDIAN</h1>
+             <b> NODE GAURDIAN </b></h1>
             <p className='p'>
               Using a Node.js boilerplate can save time and effort by providing a foundation for your project,
               allowing you to focus on building your application's specific functionality rather than setting up

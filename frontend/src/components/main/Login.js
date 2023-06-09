@@ -67,7 +67,7 @@ const Login = () => {
                       <p className="ts-50 mb-5">
                         Please enter your login and password!
                       </p>
-                      <div className="   form-white mb-4">
+                      <div className="   form-white mb-4 ">
                         <label className="form-label" htmlFor="typeEmailX">
                           Email
                         </label>

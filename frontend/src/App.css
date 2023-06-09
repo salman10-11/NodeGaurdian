@@ -9,7 +9,7 @@
 .loginMain
 
 {
-  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\loginbg.jpeg);
+  background-image: url(https://i.pinimg.com/236x/db/81/06/db81068a0199a1169009ab87b9407803.jpg);
   background-position: center; 
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,24 +17,24 @@
 
 .logincard
 {
-  background-color: #fff5;
-  color: red;
+  background-color: white;
+  color: black;
   backdrop-filter: blur(2px);
   box-shadow: 3px 3px 5px 6px rgb(126, 122, 122),-3px -3px 5px 6px rgb(126, 122, 122);;
 }
 
 .logincard label 
-{color:red}
+{color:black}
 .logincard p 
-{color:red}
+{color:balck}
 
 .sbutton{
-  color: red;
+  color: white;
   background-color: blue;
 }
 
 .signupMain{
-  background-image: url(C:\Users\HP\Desktop\NodeGaurdian\frontend\public\images\loginbg.jpeg);
+  background-image: url(https://i.pinimg.com/564x/6b/8e/97/6b8e974572105a1e4096c1a8e2b6a7bc.jpg);
 }
 
 .sbutton:hover
@@ -45,7 +45,7 @@ background-color: yellow;
 .signCard
 {
   border-radius: 25px;
-  background-color: rgba(214, 202, 202, 0.333);
+  background-color: rgb(235, 176, 176);
 }
 
 .sinbutton{
@@ -58,7 +58,7 @@ background-color: yellow;
 }
 
 .signCard label{
-  color: red;
+  color: black;
 }
 
 .myslide1{
@@ -84,13 +84,13 @@ background-color: yellow;
 }
 .text-box{
   text-align: center;
-  color: red;
+  color:white;
   font-size: 70px;
   padding-top: 200px;
 }
 .myslide1 p{
   text-align: center;
-  color: yellowgreen;
+  color: yellow;
   padding-top: 0px;
   font-size: 25px;
 }

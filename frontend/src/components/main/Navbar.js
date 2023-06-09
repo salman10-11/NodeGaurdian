@@ -48,6 +48,11 @@ const Navbar = () => {
               signup
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/main/codebrowser">
+              Generate Boilerplate Code
+            </NavLink>
+          </li>
         </ul>
         {/* Left links */}
       </div>
