@@ -11872,6 +11872,128 @@ module.exports = router;
       
     ],
   },
+  illustrator: {
+    library: [
+      {
+        name: "Express",
+        icon: "fab fa-node-js",
+        package: "express",
+      },
+      {
+        name: "Mongoose",
+        icon: "fab fa-node-js",
+        package: "mongoose",
+      },
+      {
+        name: "Cors",
+        icon: "fab fa-node-js",
+        package: "cors",
+      },
+      {
+        name: "Dotenv",
+        icon: "fab fa-node-js",
+        package: "dotenv",
+      },
+      {
+        name: "Express-Fileupload",
+        icon: "fab fa-node-js",
+        package: "express-fileupload",
+      },
+      {
+        name: "Express-Validator",
+        icon: "fab fa-node-js",
+        package: "express-validator",
+      },
+    ],
+    files: [ 
+      {
+        name: "index.html",
+        path: "",
+        content: `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>My Extension Title</title>
+          </head>
+          <body style="background: white;">
+            Hello World
+          </body>
+        </html>`,
+      },
+      
+      
+      
+      {
+        name: "manifest.xml",
+        path: "CSXS",
+        content: `
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!-- 1 -->
+        <ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="com.myextension" ExtensionBundleVersion="1.0.0" Version="9.0">
+           <!-- 2 -->
+           <ExtensionList>
+              <Extension Id="com.myextension.panel" Version="0.0.1" />
+           </ExtensionList>
+           <ExecutionEnvironment>
+              <!-- 3 -->
+              <HostList>
+                 <Host Name="PHSP" Version="20" />
+                 <Host Name="PHXS" Version="20" />
+              </HostList>
+              <LocaleList>
+                 <Locale Code="All" />
+              </LocaleList>
+              <RequiredRuntimeList>
+                 <!-- 4 -->
+                 <RequiredRuntime Name="CSXS" Version="9.0" />
+              </RequiredRuntimeList>
+           </ExecutionEnvironment>
+           <DispatchInfoList>
+              <Extension Id="com.myextension.panel">
+                 <DispatchInfo>
+                    <Resources>
+                       <!-- 5 -->
+                       <MainPath>./index.html</MainPath>
+                    </Resources>
+                    <UI>
+                       <!-- 6 -->
+                       <Type>Panel</Type>
+                       <!-- 7 -->
+                       <Menu>My Extension</Menu>
+                       <Geometry>
+                          <!-- 8 -->
+                          <Size>
+                             <Height>500</Height>
+                             <Width>350</Width>
+                          </Size>
+                       </Geometry>
+                    </UI>
+                 </DispatchInfo>
+              </Extension>
+           </DispatchInfoList>
+        </ExtensionManifest>`,
+      },
+      
+      {
+        name: ".debug",
+        path: "",
+        content: `
+        <ExtensionList>
+          <Extension Id="com.example.helloworld">
+            <HostList>
+              <Host Name="PHXS" Port="8088"/>
+              <Host Name="PHSP" Port="8088"/>
+            </HostList>
+          </Extension>
+        </ExtensionList>`,
+      },  
+       
+      
+      
+    ],
+  },
 
 
 };
