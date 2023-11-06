@@ -12,29 +12,38 @@ import CodeBrowser from './components/main/CodeBrowser';
 import UserAuth from './auth/UserAuth';
 import UserProfile from './components/user/UserProfile';
 import { Toaster } from 'react-hot-toast';
+import UserProvider from './context/UserProvider';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <Toaster position='top-center' />
-        <Routes>
-          <Route path="/" element={<Navigate to="/main/home" />} />
+        <UserProvider>
+          <Toaster position="top-center" />
+          <Routes>
+            <Route path="/" element={<Navigate to="/main/home" />} />
 
-          <Route path="main" element={<Main />} >
-            <Route path="home" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="navbar" element={<Navbar />} />
-            <Route path="codebrowser" element={<CodeBrowser />} />
-          </Route>
-          <Route path="user" element={<UserAuth> <User /> </UserAuth>} >
-            <Route path="generator" element={<CodeGenerator />} />
-            <Route path="profile" element={<UserProfile />} />
-          </Route>
-
-
-        </Routes>
+            <Route path="main" element={<Main />}>
+              <Route path="home" element={<Home />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="navbar" element={<Navbar />} />
+              <Route path="codebrowser" element={<CodeBrowser />} />
+            </Route>
+            <Route
+              path="user"
+              element={
+                <UserAuth>
+                  {' '}
+                  <User />{' '}
+                </UserAuth>
+              }
+            >
+              <Route path="generator" element={<CodeGenerator />} />
+              <Route path="profile" element={<UserProfile />} />
+            </Route>
+          </Routes>
+        </UserProvider>
       </BrowserRouter>
     </div>
   );
