@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
+import app_config from '../../config';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -17,6 +18,8 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const {apiUrl } = app_config;
+
   const signupForm = useFormik({
     initialValues: {
         name : '',
@@ -29,7 +32,7 @@ const Signup = () => {
       setSubmitting(true);
         console.log(values);
 
-        const res = await fetch('http://localhost:5000/user/add', {
+        const res = await fetch(`${apiUrl}/user/add`, {
           method: 'POST',
           body : JSON.stringify(values),
           headers: { 'Content-Type' : 'application/json' }
@@ -161,7 +164,7 @@ const Signup = () => {
                 <img
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                   className="img-fluid"
-                  alt="Sample image"
+                  alt="Sample"
                 />
               </div>
             </div>

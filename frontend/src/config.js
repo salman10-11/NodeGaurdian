@@ -1535,7 +1535,7 @@ module.exports = router;
           platformBrowserDynamicTesting()
         );
         // Then we find all the tests.
-        const context = require.context('./', true, /\.spec\.ts$/);
+        const context = require.context('./', true, /.spec.ts$/);
         // And load the modules.
         context.keys().map(context);
         `,
@@ -12000,7 +12000,7 @@ module.exports = router;
      
 
 const app_config = {
-  apiUrl: "http://localhost:5000",
+  apiUrl: "http://localhost:5000/api",
   title: "Node Guardian",
   themeColor: "#3e863d",
   status: {
